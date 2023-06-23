@@ -1,0 +1,14 @@
+.form-mainContainer {
+    display: grid;
+    place-items: center;
+    margin: 0 auto;
+}
+
+.task-Input {
+    width: 400px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 20%;
+}
