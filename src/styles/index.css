@@ -1,0 +1,14 @@
+body {
+    background-color: beige;
+}
+
+h1{
+    display: grid;
+    place-items: center;
+    margin-top: 150px;
+    margin-left: 60px;
+    color: rgb(118, 119, 120);
+    font-family: 'Labrada', serif;
+    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Shantell Sans', cursive;
+}
