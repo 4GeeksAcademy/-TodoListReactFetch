@@ -3,11 +3,16 @@ import { v4 as uuidv4 } from 'uuid';
 import Tasklist from "./TaskList";
 
 const TaskForm = () => {
+
   // HOOKS
+
   const [input, setInput] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  // --------------------------------
+
   // FUNCION SUBMIT
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim() === "") {
@@ -24,6 +29,15 @@ const TaskForm = () => {
 
   };
 
+  // --------------------------------
+
+  // FUNCION PARA ELIMINAR TAREA
+
+  const onDeleteTask = (taskId) => {
+    setTasks(tasks.filter(task => task.id !== taskId));
+  };
+  
+// --------------------------------
 
   return (
     <div>
@@ -37,14 +51,9 @@ const TaskForm = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <Tasklist tasks={tasks} />
+        <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
       </form>
     </div>
-
-
-
-
-
   );
 };
 

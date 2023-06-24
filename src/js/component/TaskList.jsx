@@ -1,39 +1,47 @@
 import React, { useState } from "react";
-import { RiDeleteBack2Fill } from 'react-icons/fa';
 
+const TaskList = ({ tasks, onDeleteTask }) => {
+  const [selectedTaskId, setSelectedTaskId] = useState("");
 
-const TaskList = ({ tasks }) => {
+  const handleTaskHover = (taskId) => {
+    setSelectedTaskId(taskId);
+  };
 
-    const [icon, setIcon] = useState(false)
-
-
-    const hideIcon = () => {
-        setIcon(false)
+  const deleteTask = (taskId) => {
+    if (taskId === selectedTaskId) {
+      onDeleteTask(taskId);
     }
-
-    const showIcon = () => {
-        setIcon(true)
-    }
+  };
 
 
-    return (
-        <div className="container-list">
-            {tasks.length === 0
-                ? (<p>No hay tareas, añadir tareas</p>)
-                : <ul className="form-list">
-                    {tasks.map((task) => (
-                        <li key={task.id}>{task.text}</li>
-                    ))}
-                </ul>
-            }
-
-
-            <div>
-             <i className="fa-solid fa-trash"></i>
-            </div>
-
-        </div>
-    );
+  return (
+    <div className="container-list">
+      {tasks.length === 0 ? (
+        <p>No hay tareas, añadir tareas</p>
+      ) : (
+        <ul className="form-list">
+          {tasks.map((task) => (
+            <li
+              key={task.id}
+              onMouseOver={() => handleTaskHover(task.id)}
+              onMouseLeave={() => handleTaskHover("")}
+            >
+              {task.text}
+              {selectedTaskId === task.id && (
+                <button
+                  className="fa-solid fa-trash"
+                  onClick={() => deleteTask(task.id)}
+                ></button>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default TaskList;
+
+
+
