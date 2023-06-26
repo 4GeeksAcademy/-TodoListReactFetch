@@ -8,11 +8,14 @@
 .form-list {
     list-style: none;
     padding: 10px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }
 
 p {
   margin-bottom: 5px;
 }
+
 
 li {
     margin-bottom: 10px;
