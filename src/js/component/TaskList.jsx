@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const TaskList = ({ tasks, onDeleteTask }) => {
   const [selectedTaskId, setSelectedTaskId] = useState("");
+  const [taskAPI, setTaskAPI] = useState(tasks)
+ 
 
   const handleTaskHover = (taskId) => {
     setSelectedTaskId(taskId);
@@ -13,6 +15,9 @@ const TaskList = ({ tasks, onDeleteTask }) => {
     }
   };
 
+  // useEffect(()=>{
+  //   console.log(taskAPI)
+  // },[taskAPI])
 
   return (
     <div className="container-list">
