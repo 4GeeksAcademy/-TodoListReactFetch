@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Tasklist from "./TaskList";
+import { createUser } from "../API";
 
 const TaskForm = () => {
 
@@ -53,6 +54,9 @@ const TaskForm = () => {
         />
         <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
       </form>
+      <button className="createUserButton" onClick={() => createUser("Toni_vs")}>
+        Crear Usuario
+      </button>
     </div>
   );
 };
