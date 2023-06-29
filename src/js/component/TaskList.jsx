@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+
 
 const TaskList = ({ tasks, onDeleteTask }) => {
   const [selectedTaskId, setSelectedTaskId] = useState("");
-  const [taskAPI, setTaskAPI] = useState(tasks)
  
 
   const handleTaskHover = (taskId) => {
@@ -15,10 +15,7 @@ const TaskList = ({ tasks, onDeleteTask }) => {
     }
   };
 
-  // useEffect(()=>{
-  //   console.log(taskAPI)
-  // },[taskAPI])
-
+ 
   return (
     <div className="container-list">
       {tasks.length === 0 ? (
@@ -31,7 +28,7 @@ const TaskList = ({ tasks, onDeleteTask }) => {
               onMouseOver={() => handleTaskHover(task.id)}
               onMouseLeave={() => handleTaskHover("")}
             >
-              {task.text}
+              {task.label}
               {selectedTaskId === task.id && (
                 <button
                   className="fa-solid fa-trash"

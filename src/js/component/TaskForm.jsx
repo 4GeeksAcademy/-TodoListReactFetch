@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Tasklist from "./TaskList";
-import { createUser } from "../API";
+import { createUser, addTask, deleteTask} from "../API";
 
 const TaskForm = () => {
 
@@ -23,11 +23,15 @@ const TaskForm = () => {
 
     const newTask = {
       id: uuidv4(),
-      text: input,
+      label: input,  
+      done: false,     
+      
     };
+    
     setTasks([newTask, ...tasks]);
     setInput("");
-
+    addTask(newTask);
+    
   };
 
   // --------------------------------
@@ -36,9 +40,17 @@ const TaskForm = () => {
 
   const onDeleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
+    deleteTask(tasks)
+    
   };
   
 // --------------------------------
+
+
+// useEffect(()=>{
+//   getApi()
+  
+// },[])
 
   return (
     <div>
@@ -54,7 +66,7 @@ const TaskForm = () => {
         />
         <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
       </form>
-      <button className="createUserButton" onClick={() => createUser("Toni_vs")}>
+      <button className="createUserButton" onClick={() => createUser()}>
         Crear Usuario
       </button>
     </div>
