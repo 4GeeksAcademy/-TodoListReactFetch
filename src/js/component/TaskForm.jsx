@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Tasklist from "./TaskList";
-import { createUser, addTask, deleteTask} from "../API";
+import { createUser, addTask, deleteTask, getAPI, cleanAPI} from "../API";
 
 const TaskForm = () => {
 
@@ -47,10 +47,11 @@ const TaskForm = () => {
 // --------------------------------
 
 
-// useEffect(()=>{
-//   getApi()
-  
-// },[])
+useEffect(()=>{
+  getAPI()
+},[tasks])
+
+
 
   return (
     <div>
@@ -66,6 +67,9 @@ const TaskForm = () => {
         />
         <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
       </form>
+      <button className="createDeleteButton" onClick={() => cleanAPI()}>
+        Eliminar Lista
+      </button>
       <button className="createUserButton" onClick={() => createUser()}>
         Crear Usuario
       </button>
