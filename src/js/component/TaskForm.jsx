@@ -9,6 +9,7 @@ const TaskForm = () => {
 
   const [input, setInput] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [remainingTasks, setRemainingTasks] = useState(0);
 
   // --------------------------------
 
@@ -30,6 +31,7 @@ const TaskForm = () => {
     
     setTasks([newTask, ...tasks]);
     setInput("");
+    if(tasks.length >= 0) {setRemainingTasks(remainingTasks+1)}
   };
 
   // --------------------------------
@@ -38,6 +40,8 @@ const TaskForm = () => {
 
   const onDeleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
+    if(remainingTasks > 0) {
+    setRemainingTasks(remainingTasks-1)}
   };
   
 // --------------------------------
@@ -54,14 +58,18 @@ const getAPI = () => {
       if (response.ok) {
         return response.json();
       } else {
-        createUser()
+        createUser();
       }
     })
-    .then((data) => setTasks(data))
+    .then((data) => {
+      setTasks(data);
+      setRemainingTasks(data.length);
+    })
     .catch((error) => {
       console.log(error);
     });
 };
+
 
 // --------------------------------
 
@@ -75,6 +83,8 @@ useEffect(() => {
 useEffect(() => {
   addTask(tasks)
 },[tasks])
+
+
 
 // --------------------------------
 
@@ -91,8 +101,9 @@ useEffect(() => {
           onChange={(e) => setInput(e.target.value)}
         />
         <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
+        <p className="recountTask">Tareas restantes: {remainingTasks}</p>
       </form>
-      <button className="createDeleteButton" onClick={() => setTasks([])}>
+      <button className="createDeleteButton" onClick={() => { setTasks([]), setRemainingTasks(0) }}>
         Limpiar Tareas
       </button>
       <button className="createUserButton" onClick={() => createUser()}>
