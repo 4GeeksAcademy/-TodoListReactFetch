@@ -32,30 +32,10 @@ export const addTask = (tasksAPI) => {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      return getAPI();
     })
     .catch((error) => console.log(error));
  };
 
-
- export const getAPI = () => {
-  return fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        createUser()
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
 
 
 

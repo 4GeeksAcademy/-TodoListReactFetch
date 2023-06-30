@@ -42,14 +42,33 @@ const TaskForm = () => {
   
 // --------------------------------
 
-useEffect(() => {
-  getAPI()
-    .then((data) => {
-      setTasks(data);
+// LLAMADA A LA API
+const getAPI = () => {
+  return fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        createUser()
+      }
     })
+    .then((data) => setTasks(data))
     .catch((error) => {
       console.log(error);
     });
+};
+
+// --------------------------------
+
+// UTILIZACIÓN USEEFFECT
+
+useEffect(() => {
+  getAPI()
 }, []);
 
 
@@ -57,6 +76,7 @@ useEffect(() => {
   addTask(tasks)
 },[tasks])
 
+// --------------------------------
 
   return (
     <div>
