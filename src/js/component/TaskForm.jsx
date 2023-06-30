@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Tasklist from "./TaskList";
-import { createUser, addTask, deleteTask, getAPI, cleanAPI} from "../API";
+import { createUser, addTask, getAPI, } from "../API";
 
 const TaskForm = () => {
 
@@ -30,8 +30,6 @@ const TaskForm = () => {
     
     setTasks([newTask, ...tasks]);
     setInput("");
-    addTask(newTask);
-    
   };
 
   // --------------------------------
@@ -40,17 +38,24 @@ const TaskForm = () => {
 
   const onDeleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
-    deleteTask(tasks)
-    
   };
   
 // --------------------------------
 
-
-useEffect(()=>{
+useEffect(() => {
   getAPI()
-},[tasks])
+    .then((data) => {
+      setTasks(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}, []);
 
+
+useEffect(() => {
+  addTask(tasks)
+},[tasks])
 
 
   return (
@@ -67,8 +72,8 @@ useEffect(()=>{
         />
         <Tasklist tasks={tasks} onDeleteTask={onDeleteTask} />
       </form>
-      <button className="createDeleteButton" onClick={() => cleanAPI()}>
-        Eliminar Lista
+      <button className="createDeleteButton" onClick={() => setTasks([])}>
+        Limpiar Tareas
       </button>
       <button className="createUserButton" onClick={() => createUser()}>
         Crear Usuario

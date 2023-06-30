@@ -12,7 +12,7 @@ export const createUser = () => {
         alert("El usuario se ha creado correctamente");
         return response.json();
       } else {
-        Error("El usuario ya se encuentra creado");
+        alert("El usuario ya se encuentra creado");
       }
     })
     .then((data) => console.log(data))
@@ -21,65 +21,43 @@ export const createUser = () => {
 
 
 
-export const addTask = (newTask) => {
+export const addTask = (tasksAPI) => {
   fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify([newTask]) 
+    body: JSON.stringify(tasksAPI) 
   })
     .then((response) => response.json())
-    .then((data) => console.log(data))
+    .then((data) => {
+      console.log(data);
+      return getAPI();
+    })
     .catch((error) => console.log(error));
-};
+ };
 
 
-export const deleteTask = (tasks) => {
-  fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(tasks) 
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-};
-
-
-export const getAPI = () => {
-  fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
+ export const getAPI = () => {
+  return fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
-    },
-    
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-};
-
-export const cleanAPI = () => {
-  fetch("https://assets.breatheco.de/apis/fake/todos/user/Toni_CM", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    
-  })
-  .then((response) => {
-    if (response.ok) {
-      alert("Se ha eliminado el usuario y todas las tareas");
-      return response.json();
-    } else {
-      Error("Hubo un error al ejecutar la limpieza");
     }
   })
-  .then((data) => console.log(data))
-  .catch((error) => console.log(error));
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        createUser()
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
+
+
+
 
 
